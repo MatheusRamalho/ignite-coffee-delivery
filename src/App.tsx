@@ -1,5 +1,3 @@
 export const App = () => {
-    return (
-        <p className=""> Coffee Delivery </p>
-    )
+    return <p className=""> Coffee Delivery </p>
 }
