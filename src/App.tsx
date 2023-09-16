@@ -1,3 +1,13 @@
+import { BrowserRouter } from 'react-router-dom'
+
+import './styles/global.css'
+
+import { Routers } from './routers'
+
 export const App = () => {
-    return <p className=""> Coffee Delivery </p>
+    return (
+        <BrowserRouter>
+            <Routers />
+        </BrowserRouter>
+    )
 }
