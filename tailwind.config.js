@@ -2,6 +2,11 @@
 export default {
     content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
     theme: {
+        fontFamily: {
+            baloo: ['Baloo 2, cursive'],
+            roboto: ['Roboto, sans-serif'],
+        },
+
         extend: {
             colors: {
                 'primary-400': '#F1E9C9',
