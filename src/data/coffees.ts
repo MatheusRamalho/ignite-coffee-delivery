@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import { Coffee } from '@/types/Coffee'
+import { CoffeeType } from '@/types/Coffee'
 
 import CoffeeAmericanoImg from '@/assets/imgs/coffees/coffee-americano.png'
 import CoffeeArabeImg from '@/assets/imgs/coffees/coffee-arabe.png'
@@ -17,7 +17,7 @@ import CoffeeLatteImg from '@/assets/imgs/coffees/coffee-latte.png'
 import CoffeeMacchiatoImg from '@/assets/imgs/coffees/coffee-macchiato.png'
 import CoffeeMocaccinoImg from '@/assets/imgs/coffees/coffee-mocaccino.png'
 
-export const COFFEES_CART_DATA: Coffee[] = [
+export const COFFEES_CART_DATA: CoffeeType[] = [
     {
         id: uuidv4(),
         image: CoffeeExpressoImg,
@@ -36,7 +36,7 @@ export const COFFEES_CART_DATA: Coffee[] = [
     },
 ]
 
-export const COFFEES_DATA: Coffee[] = [
+export const COFFEES_DATA: CoffeeType[] = [
     {
         id: uuidv4(),
         image: CoffeeExpressoImg,

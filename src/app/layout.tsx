@@ -3,6 +3,7 @@ import { Baloo_2 as Baloo2 } from 'next/font/google'
 
 import '@/styles/globals.css'
 
+import { CartContextProvider } from '@/contexts/CartContext'
 import { Navbar } from '@/components/Navbar'
 
 const baloo2 = Baloo2({ subsets: ['latin'] })
@@ -20,11 +21,13 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={baloo2.className}>
-                <div className="w-full h-full bg-base-100">
-                    <Navbar />
+                <CartContextProvider>
+                    <div className="w-full h-full bg-base-100">
+                        <Navbar />
 
-                    <main className=""> {children} </main>
-                </div>
+                        <main className=""> {children} </main>
+                    </div>
+                </CartContextProvider>
             </body>
         </html>
     )
