@@ -1,8 +1,8 @@
 import Image, { StaticImageData } from 'next/image'
 
-import { Button } from '../Button'
-import { Countdown } from '../Countdown'
-import { Icon } from '../Icon'
+import { Button } from './Button'
+import { Countdown } from './Countdown'
+import { Icon } from './Icon'
 
 export interface CartItemProps {
     id: string

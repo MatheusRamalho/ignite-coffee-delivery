@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { Icon } from '../Icon'
+import { Icon } from './Icon'
 
 export function Countdown() {
     const [amount, setAmount] = useState<number>(1)

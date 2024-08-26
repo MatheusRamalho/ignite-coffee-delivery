@@ -1,10 +1,8 @@
 import Image from 'next/image'
 
 import { COFFEES_DATA } from '@/data/coffees'
-
 import { Icon } from '@/components/Icon'
 import { CatalogItem } from '@/components/CatalogItem'
-
 import heroImg from '@/assets/imgs/hero.png'
 
 export default function Home() {

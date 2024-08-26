@@ -3,12 +3,11 @@
 import { useState } from 'react'
 
 import { COFFEES_CART_DATA } from '@/data/coffees'
-
+import { Button } from '@/components/Button'
 import { CartItem } from '@/components/CartItem'
 import { Icon } from '@/components/Icon'
-import { Input } from '@/components/Input'
-import { Button } from '@/components/Button'
 import { InputRadio } from '@/components/InputRadio'
+import { Input } from '@/components/Input'
 
 // const paymentType = 'credit_card' | 'pix' | 'money'
 

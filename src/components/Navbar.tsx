@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-import { Icon } from '../Icon'
-import { CartIcon } from '../CartIcon'
+import { Icon } from './Icon'
+import { CartIcon } from './CartIcon'
 
 import brandImg from '@/assets/imgs/logo.png'
 

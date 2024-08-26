@@ -32,7 +32,7 @@ const config: Config = {
                 'base-700': '#574F4D', // text
                 'base-800': '#403937', // subtitle
                 'base-900': '#272221', // title
-                'base-950': '#231F1E',
+                'base-950': '#231F1E', //
             },
 
             backgroundImage: {
