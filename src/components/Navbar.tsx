@@ -1,11 +1,20 @@
+'use client'
+
 import Image from 'next/image'
 
+import { useCart } from '@/hooks/useCart'
 import { Icon } from './Icon'
 import { CartIcon } from './CartIcon'
-
 import brandImg from '@/assets/imgs/logo.png'
 
 export function Navbar() {
+    const { cartItems } = useCart()
+
+    const totalQuantity =
+        cartItems.length > 0
+            ? cartItems.reduce((acc, item) => acc + item.quantity, 0)
+            : undefined
+
     return (
         <header className="w-full h-24 border-b border-b-gray-100">
             <div className="container mx-auto px-4 h-full flex items-center justify-between">
@@ -25,7 +34,10 @@ export function Navbar() {
                         </li>
 
                         <li>
-                            <CartIcon variant="primary" />
+                            <CartIcon
+                                variant="primary"
+                                quantity={totalQuantity}
+                            />
                         </li>
                     </ul>
                 </nav>

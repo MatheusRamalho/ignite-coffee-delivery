@@ -10,9 +10,10 @@ export interface CatalogItemProps {
     id: string
     image: StaticImageData
     name: string
-    description?: string
+    description: string
     price: string
     types: string[]
+    onAddToCart: () => void
 }
 
 export function CatalogItem({
@@ -22,11 +23,8 @@ export function CatalogItem({
     description,
     price,
     types,
+    onAddToCart,
 }: CatalogItemProps) {
-    function handleAddToCart() {
-        console.log('Adicionou ao carrinho')
-    }
-
     return (
         <article
             id={id}
@@ -65,7 +63,8 @@ export function CatalogItem({
 
                 <div className="flex items-center justify-center gap-2">
                     <Countdown />
-                    <CartIcon variant="secondary" onClick={handleAddToCart} />
+
+                    <CartIcon variant="secondary" onClick={onAddToCart} />
                 </div>
             </div>
         </article>
