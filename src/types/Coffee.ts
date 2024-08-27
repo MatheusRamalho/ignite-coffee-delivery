@@ -1,6 +1,6 @@
 import { StaticImageData } from 'next/image'
 
-export interface CoffeeType {
+export interface Coffee {
     id: string
     image: StaticImageData
     name: string

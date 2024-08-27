@@ -1,6 +1,7 @@
 import { InputHTMLAttributes } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { tv, VariantProps } from 'tailwind-variants'
+import { Control, Controller } from 'react-hook-form'
 
 const inputVariant = tv({
     base: [
@@ -22,13 +23,33 @@ const inputVariant = tv({
 
 interface InputProps
     extends InputHTMLAttributes<HTMLInputElement>,
-        VariantProps<typeof inputVariant> {}
+        VariantProps<typeof inputVariant> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    control: Control<any>
+    name: string
+}
 
-export function Input({ variant, className, ...props }: InputProps) {
+export function Input({
+    name,
+    control,
+    variant,
+    className,
+    ...rest
+}: InputProps) {
     return (
-        <input
-            className={twMerge(inputVariant({ variant }), className)}
-            {...props}
+        <Controller
+            control={control}
+            name={name}
+            render={({ field: { value, onChange, ref, ...field } }) => (
+                <input
+                    {...rest}
+                    {...field}
+                    value={value}
+                    onChange={onChange}
+                    ref={ref}
+                    className={twMerge(inputVariant({ variant }), className)}
+                />
+            )}
         />
     )
 }

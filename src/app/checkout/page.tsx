@@ -1,40 +1,88 @@
 'use client'
 
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import { COFFEES_CART_DATA } from '@/data/coffees'
+import { Icon } from '@/components/Icon'
+import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
 import { CartItem } from '@/components/CartItem'
-import { Icon } from '@/components/Icon'
 import { InputRadio } from '@/components/InputRadio'
-import { Input } from '@/components/Input'
+import console from 'console'
 
-// const paymentType = 'credit_card' | 'pix' | 'money'
+const addressSchema = z.object({
+    postal_code: z
+        .string({ message: 'O cep é obrigatório' })
+        .min(8, { message: 'O cep não pode ter menos de 8 dígitos.' })
+        .max(9, { message: 'O cep não pode ter mais de 8 dígitos.' }),
+    state: z
+        .string({ message: 'O estado é obrigatório' })
+        .min(2, { message: 'O estado não pode ter menos de 2 dígitos.' })
+        .max(2, { message: 'O estado não pode ter mais de 2 dígitos.' }),
+    city: z.string({ message: 'O nome da cidade é obrigatório' }),
+    district: z.string({ message: 'O nome do bairro é obrigatório' }),
+    street: z.string({ message: 'O nome da rua é obrigatório' }),
+    number: z.string({ message: 'O número é obrigatório' }),
+    complement: z.string().optional().or(z.literal('')),
+})
+
+type AddressSchemaData = z.infer<typeof addressSchema>
 
 export default function Checkout() {
-    const [postalCode, setPostalCode] = useState<string>('')
-    const [city, setCity] = useState<string>('')
-    const [state, setState] = useState<string>('')
-    const [street, setStreet] = useState<string>('')
-    const [district, setDistrict] = useState<string>('')
-    const [number, setNumber] = useState<string>('')
-    const [complement, setComplement] = useState<string>('')
-    // const [paymentType, setPaymentType] = useState('')
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+        watch,
+        reset,
+    } = useForm<AddressSchemaData>({
+        resolver: zodResolver(addressSchema),
+        defaultValues: {
+            postal_code: '',
+            state: '',
+            city: '',
+            district: '',
+            street: '',
+            number: '',
+            complement: '',
+        },
+    })
 
-    async function fetchCepData() {
-        const response = await fetch(
-            `https://viacep.com.br/ws/${postalCode}/json`,
-        )
-        const data = await response.json()
+    const postalCodeWatch = watch('postal_code')
 
-        if (data.erro) {
-            setPostalCode('')
-        } else {
-            setCity(data.localidade)
-            setState(data.uf)
-            setStreet(data.logradouro)
-            setDistrict(data.bairro)
-            setNumber(data.number)
+    async function getViacep() {
+        // setIsAlertOpen(true)
+
+        const postalCodeWatchWithoutHyphen =
+            postalCodeWatch.replace(/\D/g, '') || ''
+
+        if (postalCodeWatchWithoutHyphen.length !== 8) {
+            return
+        }
+
+        try {
+            const response = await fetch(
+                `https://viacep.com.br/ws/${postalCodeWatchWithoutHyphen}/json`,
+            )
+
+            const data = await response.json()
+
+            if (data.erro) {
+                setValue('city', data.localidade)
+                setValue('state', data.uf)
+                setValue('street', data.logradouro)
+                setValue('district', data.bairro)
+                setValue('complement', data.complemento)
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error)
+            reset()
+        } finally {
+            reset()
+            // setIsAlertOpen(false)
         }
     }
 
@@ -42,15 +90,24 @@ export default function Checkout() {
         console.log('')
     }
 
-    function handleSubmit() {
-        console.log('')
+    async function handleCreateNewOrder(data: AddressSchemaData) {
+        try {
+            console.log(data)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            console.log('Finally')
+        }
     }
 
     return (
         <section className="w-full h-full py-32 px-8">
             <h6 hidden> Checkout </h6>
 
-            <form id="formCheckout" onSubmit={handleSubmit}>
+            <form
+                id="formCheckout"
+                onSubmit={handleSubmit(handleCreateNewOrder)}
+            >
                 <div className="container mx-auto flex items-start gap-8">
                     <div className="">
                         <h2 className="text-3xl font-bold mb-2">
@@ -82,42 +139,32 @@ export default function Checkout() {
                                     </legend>
 
                                     <Input
-                                        isNotFull
-                                        type="text"
                                         required
+                                        type="text"
                                         id="postalCode"
                                         name="postalCode"
                                         placeholder="CEP"
-                                        value={postalCode}
-                                        onChange={(event) =>
-                                            setPostalCode(event.target.value)
-                                        }
-                                        onBlur={fetchCepData}
+                                        control={control}
+                                        onBlur={getViacep}
                                     />
 
                                     <Input
-                                        type="text"
                                         required
+                                        type="text"
                                         id="street"
                                         name="street"
                                         placeholder="Rua"
-                                        value={street}
-                                        onChange={(event) =>
-                                            setStreet(event.target.value)
-                                        }
+                                        control={control}
                                     />
 
                                     <div className="flex flex-col gap-4 sm:flex-row">
                                         <Input
-                                            type="text"
                                             required
+                                            type="text"
                                             id="number"
                                             name="number"
                                             placeholder="Número"
-                                            value={number}
-                                            onChange={(event) =>
-                                                setNumber(event.target.value)
-                                            }
+                                            control={control}
                                         />
 
                                         <Input
@@ -125,26 +172,18 @@ export default function Checkout() {
                                             id="complement"
                                             name="complement"
                                             placeholder="Complemento"
-                                            value={complement}
-                                            onChange={(event) =>
-                                                setComplement(
-                                                    event.target.value,
-                                                )
-                                            }
+                                            control={control}
                                         />
                                     </div>
 
                                     <div className="flex flex-col gap-4 sm:flex-row">
                                         <Input
-                                            type="text"
                                             required
+                                            type="text"
                                             id="district"
                                             name="district"
                                             placeholder="Bairro"
-                                            value={district}
-                                            onChange={(event) =>
-                                                setDistrict(event.target.value)
-                                            }
+                                            control={control}
                                         />
 
                                         <Input
@@ -153,23 +192,17 @@ export default function Checkout() {
                                             id="city"
                                             name="city"
                                             placeholder="Cidade"
-                                            value={city}
-                                            onChange={(event) =>
-                                                setCity(event.target.value)
-                                            }
+                                            control={control}
                                         />
 
                                         <Input
-                                            type="text"
                                             required
+                                            type="text"
                                             id="state"
                                             name="state"
                                             placeholder="UF"
                                             minLength={2}
-                                            value={state}
-                                            onChange={(event) =>
-                                                setState(event.target.value)
-                                            }
+                                            control={control}
                                         />
                                     </div>
                                 </fieldset>
