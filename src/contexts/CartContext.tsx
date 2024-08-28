@@ -4,7 +4,7 @@ import { createContext, ReactNode, useState } from 'react'
 
 import { Coffee } from '@/types/Coffee'
 
-interface CartItemType extends Coffee {
+export interface CartItemType extends Coffee {
     quantity: number
 }
 

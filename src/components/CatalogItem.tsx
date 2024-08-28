@@ -1,19 +1,22 @@
 'use client'
 
+import { useState } from 'react'
 import Image, { StaticImageData } from 'next/image'
 
+import { useCart } from '@/hooks/useCart'
+import { Coffee } from '@/types/Coffee'
+import { priceFormat } from '@/utils/price'
 import { Badge } from './Badge'
 import { CartIcon } from './CartIcon'
-import { Countdown } from './Countdown'
+import { Icon } from './Icon'
 
 export interface CatalogItemProps {
     id: string
     image: StaticImageData
     name: string
     description: string
-    price: string
+    price: number
     types: string[]
-    onAddToCart: () => void
 }
 
 export function CatalogItem({
@@ -23,8 +26,32 @@ export function CatalogItem({
     description,
     price,
     types,
-    onAddToCart,
 }: CatalogItemProps) {
+    const [quantity, setQuantity] = useState<number>(1)
+    const { addItemToCart } = useCart()
+
+    function handleMinusQuantity() {
+        setQuantity((state) => Math.max(state - 1, 1))
+    }
+
+    function handlePlusQuantity() {
+        setQuantity((state) => state + 1)
+    }
+
+    function handleAddToCart() {
+        const product: Coffee = {
+            id,
+            image,
+            name,
+            description,
+            price,
+            types,
+        }
+
+        addItemToCart(product, quantity)
+        // setQuantity(1)
+    }
+
     return (
         <article
             id={id}
@@ -58,13 +85,39 @@ export function CatalogItem({
             <div className="flex items-center justify-between">
                 <div className="text-base-700">
                     R$
-                    <span className="text-2xl font-bold"> {price} </span>
+                    <span className="text-2xl font-bold">
+                        {' '}
+                        {priceFormat({ priceInCents: price })}
+                    </span>
                 </div>
 
                 <div className="flex items-center justify-center gap-2">
-                    <Countdown />
+                    <div className="flex items-center justify-between gap-3 p-2 bg-base-400 rounded-lg">
+                        <button
+                            className="group disabled:cursor-not-allowed hover:cursor-pointer"
+                            onClick={handleMinusQuantity}
+                            disabled={quantity === 1}
+                        >
+                            <Icon
+                                name="minus"
+                                className="text-primary-600 group-hover:text-secondary-500"
+                            />
+                        </button>
 
-                    <CartIcon variant="secondary" onClick={onAddToCart} />
+                        <div className=""> {quantity} </div>
+
+                        <button
+                            className="group disabled:cursor-not-allowed hover:cursor-pointer"
+                            onClick={handlePlusQuantity}
+                        >
+                            <Icon
+                                name="plus"
+                                className="text-primary-600 group-hover:text-secondary-500"
+                            />
+                        </button>
+                    </div>
+
+                    <CartIcon variant="secondary" onClick={handleAddToCart} />
                 </div>
             </div>
         </article>

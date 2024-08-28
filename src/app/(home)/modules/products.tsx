@@ -3,14 +3,9 @@
 import { useCart } from '@/hooks/useCart'
 import { COFFEES_DATA } from '@/data/coffees'
 import { CatalogItem } from '@/components/CatalogItem'
-import { Coffee } from '@/types/Coffee'
 
 export function Products() {
-    const { cartItems, addItemToCart } = useCart()
-
-    function handleAddToCart(product: Coffee) {
-        addItemToCart(product, 1)
-    }
+    const { cartItems } = useCart()
 
     return (
         <section className="w-full h-full py-32 px-8">
@@ -36,7 +31,6 @@ export function Products() {
                                     description={element.description}
                                     price={element.price}
                                     types={element.types}
-                                    onAddToCart={() => handleAddToCart(element)}
                                 />
                             )
                         })}

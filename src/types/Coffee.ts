@@ -5,6 +5,6 @@ export interface Coffee {
     image: StaticImageData
     name: string
     description: string
-    price: string
+    price: number
     types: string[]
 }
