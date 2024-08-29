@@ -35,7 +35,7 @@ export function Navbar() {
                         </li>
 
                         <li>
-                            <Link className="" href="checkout">
+                            <Link className="" href="cart">
                                 <CartIcon
                                     variant="primary"
                                     quantity={totalQuantity}

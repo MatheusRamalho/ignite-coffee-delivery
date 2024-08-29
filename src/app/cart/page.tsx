@@ -38,7 +38,7 @@ const addressSchema = z.object({
 
 type AddressSchemaData = z.infer<typeof addressSchema>
 
-export default function Checkout() {
+export default function Cart() {
     const { cartItems } = useCart()
     const router = useRouter()
 
@@ -99,9 +99,6 @@ export default function Checkout() {
         } catch (error) {
             console.error('Error fetching data:', error)
             reset()
-        } finally {
-            // reset()
-            // setIsAlertOpen(false)
         }
     }
 
@@ -123,7 +120,7 @@ export default function Checkout() {
                 }
 
                 const orderString = encodeURIComponent(JSON.stringify(order))
-                router.push(`/checkout/completed?order=${orderString}`)
+                router.push(`/success?order=${orderString}`)
             }
         } catch (error) {
             console.error(error)
@@ -133,7 +130,7 @@ export default function Checkout() {
     }
 
     return (
-        <section className="size-full py-32 px-8">
+        <section className="size-full py-20 px-8">
             <h6 hidden> Checkout </h6>
 
             <div className="container mx-auto flex items-start gap-8 flex-col lg:flex-row">

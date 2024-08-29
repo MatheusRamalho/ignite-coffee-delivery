@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image, { StaticImageData } from 'next/image'
 
 import { useCart } from '@/hooks/useCart'
-import { Coffee } from '@/types/Coffee'
+import { CoffeeType } from '@/types/Coffee'
 import { priceFormat } from '@/utils/price'
 import { Badge } from './Badge'
 import { CartIcon } from './CartIcon'
@@ -39,7 +39,7 @@ export function CatalogItem({
     }
 
     function handleAddToCart() {
-        const product: Coffee = {
+        const product: CoffeeType = {
             id,
             image,
             name,

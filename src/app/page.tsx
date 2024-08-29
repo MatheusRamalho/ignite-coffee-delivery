@@ -2,25 +2,22 @@
 
 import Image from 'next/image'
 
-import { useCart } from '@/hooks/useCart'
 import { COFFEES_DATA } from '@/data/coffees'
 import { CatalogItem } from '@/components/CatalogItem'
 import { Icon } from '@/components/Icon'
 import heroImg from '@/assets/imgs/hero.png'
 
 export default function Home() {
-    const { cartItems } = useCart()
-
     return (
         <>
-            <section className="w-full h-full py-32 px-8 bg-cover bg-no-repeat bg-center bg-hero">
+            <section className="w-full h-full py-20 px-8 bg-cover bg-no-repeat bg-center bg-hero">
                 <h6 hidden> Session hero </h6>
 
                 <div className="container mx-auto">
                     <div className="flex items-center justify-center gap-8 flex-col lg:flex-row">
                         <div className="flex-1">
                             <div className="text-center lg:text-left">
-                                <h1 className="text-5xl font-bold">
+                                <h1 className="text-2xl md:text-5xl font-bold">
                                     Encontre o café parfeito para qualquer hora
                                     do dia
                                 </h1>
@@ -102,10 +99,6 @@ export default function Home() {
 
             <section className="w-full h-full py-32 px-8">
                 <h6 hidden> Session coffees </h6>
-
-                <pre className="text-xs">
-                    <code> {JSON.stringify(cartItems, null, 2)} </code>
-                </pre>
 
                 <div className="container mx-auto">
                     <h2 className="text-3xl font-bold mb-20"> Nosso cafés </h2>

@@ -8,7 +8,7 @@ import { OrderType } from '@/types/Order'
 import { Icon } from '@/components/Icon'
 import ilustrationSvg from '@/assets/svgs/illustration.svg'
 
-export default function CheckoutCompleted() {
+export default function Success() {
     const [order, setOrder] = useState<OrderType | null>(null)
     const searchParams = useSearchParams()
     console.log(order)
@@ -29,7 +29,7 @@ export default function CheckoutCompleted() {
     }, [searchParams])
 
     return (
-        <section className="size-full py-32 px-8">
+        <section className="size-full py-20 px-8">
             <h6 hidden> Checkout Completed </h6>
 
             <div className="container mx-auto flex items-start gap-8 flex-col lg:flex-row">
@@ -43,7 +43,7 @@ export default function CheckoutCompleted() {
                     </p>
 
                     <ul className="flex-1 flex flex-col items-center justify-center gap-10 mt-14 p-10 rounded-md rounded-tr-[2.25rem] rounded-bl-[2.25rem] border border-secondary-400">
-                        <li className="w-full flex items-center gap-2">
+                        <li className="w-full flex gap-2 flex-col sm:flex-row sm:items-center">
                             <span className="w-10 h-10 rounded-full bg-secondary-500 flex items-center justify-center">
                                 <Icon
                                     name="shopping-cart"
@@ -61,7 +61,7 @@ export default function CheckoutCompleted() {
                             </span>
                         </li>
 
-                        <li className="w-full flex items-center gap-2">
+                        <li className="w-full flex gap-2 flex-col sm:flex-row sm:items-center">
                             <span className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center">
                                 <Icon name="timer" className="text-white" />
                             </span>
@@ -74,7 +74,7 @@ export default function CheckoutCompleted() {
                             </span>
                         </li>
 
-                        <li className="w-full flex items-center gap-2">
+                        <li className="w-full flex gap-2 flex-col sm:flex-row sm:items-center">
                             <span className="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center">
                                 <Icon
                                     name="dollar-sign"
