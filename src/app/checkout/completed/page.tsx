@@ -1,16 +1,39 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 
+import { OrderType } from '@/types/Order'
 import { Icon } from '@/components/Icon'
-
 import ilustrationSvg from '@/assets/svgs/illustration.svg'
 
 export default function CheckoutCompleted() {
+    const [order, setOrder] = useState<OrderType | null>(null)
+    const searchParams = useSearchParams()
+    console.log(order)
+    useEffect(() => {
+        const orderParam = searchParams.get('order')
+
+        if (orderParam) {
+            try {
+                // Decodifica e parseia o parâmetro da query
+                const decodedOrder = decodeURIComponent(orderParam)
+                const parsedOrder: OrderType = JSON.parse(decodedOrder)
+
+                setOrder(parsedOrder)
+            } catch (error) {
+                console.error('Error parsing order data:', error)
+            }
+        }
+    }, [searchParams])
+
     return (
-        <section className="w-full h-full py-32 px-8">
+        <section className="size-full py-32 px-8">
             <h6 hidden> Checkout Completed </h6>
 
-            <div className="container mx-auto flex items-center justify-center gap-8">
-                <div className="">
+            <div className="container mx-auto flex items-start gap-8 flex-col lg:flex-row">
+                <div className="w-full lg:flex-1">
                     <h2 className="text-3xl font-bold text-primary-600 mb-2">
                         Uhu! Pedido confirmado
                     </h2>
@@ -30,10 +53,11 @@ export default function CheckoutCompleted() {
 
                             <span className="flex-1 flex flex-col">
                                 Entrega em
-                                <span className="font-bold">
-                                    Rua João Daniel Martinelli, 102 Farrapos -
-                                    Porto Alegre, RS
-                                </span>
+                                {order && (
+                                    <span className="font-bold">
+                                        {`${order.address.street}, ${order.address.number} - ${order.address.district} - ${order.address.city}, ${order.address.state} - ${order.address.postal_code} - Complemento: ${order.address.complement || '-'}`}
+                                    </span>
+                                )}
                             </span>
                         </li>
 
@@ -60,16 +84,32 @@ export default function CheckoutCompleted() {
 
                             <span className="flex-1 flex flex-col">
                                 Pagamento na entrega
-                                <span className="font-bold">
-                                    Cartão de Crédito
-                                </span>
+                                {order && (
+                                    <span className="font-bold">
+                                        {order.address.payment_type ===
+                                            'credit_card' &&
+                                            'Cartão de Crédito'}
+
+                                        {order.address.payment_type === 'pix' &&
+                                            'Pix'}
+
+                                        {order.address.payment_type ===
+                                            'money' && 'Dinheiro'}
+                                    </span>
+                                )}
                             </span>
                         </li>
                     </ul>
                 </div>
 
-                <div className="flex-1 flex items-center justify-center">
-                    <Image src={ilustrationSvg} alt="" />
+                <div className="w-full lg:flex-1 flex items-center justify-center">
+                    <Image
+                        src={ilustrationSvg}
+                        alt="Delivery"
+                        className="size-96"
+                        width={384}
+                        height={384}
+                    />
                 </div>
             </div>
         </section>

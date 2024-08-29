@@ -17,11 +17,11 @@ const inputVariant = tv({
         },
     },
     defaultVariants: {
-        variant: 'fit',
+        variant: 'full',
     },
 })
 
-interface InputProps
+interface InputControlProps
     extends InputHTMLAttributes<HTMLInputElement>,
         VariantProps<typeof inputVariant> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,13 +29,14 @@ interface InputProps
     name: string
 }
 
-export function Input({
+export function InputControl({
     name,
     control,
     variant,
     className,
+    onBlur,
     ...rest
-}: InputProps) {
+}: InputControlProps) {
     return (
         <Controller
             control={control}
@@ -46,6 +47,7 @@ export function Input({
                     {...field}
                     value={value}
                     onChange={onChange}
+                    onBlur={onBlur}
                     ref={ref}
                     className={twMerge(inputVariant({ variant }), className)}
                 />

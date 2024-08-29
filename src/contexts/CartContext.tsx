@@ -2,15 +2,15 @@
 
 import { createContext, ReactNode, useState } from 'react'
 
-import { Coffee } from '@/types/Coffee'
+import { CoffeeType } from '@/types/Coffee'
 
-export interface CartItemType extends Coffee {
+export interface CartItemType extends CoffeeType {
     quantity: number
 }
 
 interface CartContextProps {
     cartItems: CartItemType[]
-    addItemToCart: (item: Coffee, quantity: number) => void
+    addItemToCart: (item: CoffeeType, quantity: number) => void
     removeItemFromCart: (id: string) => void
     clearCart: () => void
 }
@@ -24,7 +24,7 @@ export const CartContext = createContext({} as CartContextProps)
 export function CartContextProvider({ children }: CartContextProviderProps) {
     const [cartItems, setCartItems] = useState<CartItemType[]>([])
 
-    function addItemToCart(item: Coffee, quantity: number) {
+    function addItemToCart(item: CoffeeType, quantity: number) {
         setCartItems((prevItems) => {
             const existingItem = prevItems.find(
                 (cartItem) => cartItem.id === item.id,
