@@ -120,7 +120,7 @@ export default function Cart() {
                 }
 
                 const orderString = encodeURIComponent(JSON.stringify(order))
-                router.push(`/success?order=${orderString}`)
+                router.push(`/finished?order=${orderString}`)
             }
         } catch (error) {
             console.error(error)

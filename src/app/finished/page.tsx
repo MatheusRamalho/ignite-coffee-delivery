@@ -8,7 +8,7 @@ import { OrderType } from '@/types/Order'
 import { Icon } from '@/components/Icon'
 import ilustrationSvg from '@/assets/svgs/illustration.svg'
 
-export default function Success() {
+export default function Finished() {
     const [order, setOrder] = useState<OrderType | null>(null)
     const searchParams = useSearchParams()
     console.log(order)

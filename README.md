@@ -78,7 +78,7 @@ Antes de começar, verifique se atendeu aos seguintes requisitos:
 Clone o repositório
 
 ```bash
-git clone https://github.com/MatheusRamalho/paybank
+git clone https://github.com/MatheusRamalho/ignite-coffee-delivery
 ```
 
 Utilize o **npm** para instalar as dependências do projeto.
