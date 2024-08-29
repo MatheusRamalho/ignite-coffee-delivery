@@ -25,7 +25,7 @@ export default function RootLayout({
                     <div className="w-full h-full bg-base-100">
                         <Navbar />
 
-                        <main className=""> {children} </main>
+                        <main className="mt-24"> {children} </main>
                     </div>
                 </CartContextProvider>
             </body>

@@ -59,7 +59,7 @@ Você pode visualizar o layout do projeto através [desse link](). É necessári
 
 ## 🚀 Deploy
 
-Você pode visualizar o deploy do projeto na vercel através [desse link](https://coffe-delivery-mat.vercel.app/).
+Você pode visualizar o deploy do projeto na vercel através [desse link](https://coffee-delivery-mat.vercel.app/).
 
 <br />
 

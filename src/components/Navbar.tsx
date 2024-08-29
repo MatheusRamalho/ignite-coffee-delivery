@@ -17,7 +17,7 @@ export function Navbar() {
             : undefined
 
     return (
-        <header className="w-full h-24 border-b border-b-gray-100">
+        <header className="z-50 fixed top-0 left-0 right-0 w-full h-24 border-b border-b-gray-100 bg-base-100">
             <div className="container mx-auto px-4 h-full flex items-center justify-between">
                 <Link className="" href="/">
                     <Image
